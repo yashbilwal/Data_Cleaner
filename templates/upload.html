@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>Upload Sales Data File</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('upload_file') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Select CSV File</label>
+                        <input class="form-control" type="file" id="file" name="file" accept=".csv" required>
+                        <div class="form-text">Only CSV files are accepted.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Upload and Process</button>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Welcome, {{ session.email }}</h2>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <h5>Upload New File</h5>
+    </div>
+    <div class="card-body">
+        <a href="{{ url_for('upload_file') }}" class="btn btn-primary">Upload CSV File</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h5>Your Processed Files</h5>
+    </div>
+    <div class="card-body">
+        {% if uploads %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Original Filename</th>
+                            <th>Upload Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for upload in uploads %}
+                            <tr>
+                                <td>{{ upload.original_filename }}</td>
+                                <td>{{ upload.uploaded_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>
+                                    <a href="{{ url_for('download_file', filename=upload.cleaned_filename) }}" 
+                                       class="btn btn-sm btn-success">Download</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No files uploaded yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
